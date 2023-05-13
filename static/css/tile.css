@@ -1,0 +1,37 @@
+.tile {
+  background-color: white;
+  width: 70%; /* You can change the size however you like. */
+  height: 15em;
+  margin: 1em;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.tile-img {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: none;
+  width: 15em;
+  height: inherit;
+  float: left;
+}
+
+.tile-info {
+  height: inherit;
+  padding: 1em;
+  margin-left: 15em;
+}
+
+/* These are optional changes I make to my css. */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  font-family: sans-serif;
+  color: #777;
+}

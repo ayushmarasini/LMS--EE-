@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+
+{% load static %}
+{%block content%}
+
+<link rel="stylesheet" href={% static 'css/tile.css' %}>
+<center>
+<img src="/media/{{category.image}}" width="100px" style="border:1px solid red"/>
+<h3>
+    {{category.name}}
+</h3>
+    {% for component in components %}
+    <a href="/component/{{component.id}}" style="text-decoration: none;color:black">
+    <div class='tile'>
+    <img class='tile-img' src="/media/{{component.image}}"/>
+    <div class='tile-info'>
+        <h1>{{component.name}}</h1>
+        <p>{{component.description}}</p>
+    </div>
+    </div>
+    </a>
+    {% endfor %}
+</center>
+{%endblock%}

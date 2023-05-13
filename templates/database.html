@@ -1,0 +1,81 @@
+{% extends 'base.html'%}
+
+{% load static %}
+{%block content%}
+
+<link rel="stylesheet" href={% static 'css/tile.css' %}>
+<style>
+    .search{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size:20px;
+        border:1px solid red;
+        margin:20px;
+        padding:20px;
+    }
+    .search > input {
+        width:800px;
+        border: none
+    }
+</style>
+
+<div class="search">
+    <input type="text" placeholder="Search" class="searchButton">
+</div>
+<div class="tiles">
+    {% for component in components %}
+    
+    {% endfor %}
+</div>
+<script defer>
+    let components = [
+        {%for component in components%}
+        {   
+            'id': '{{component.id}}',
+            'name': '{{component.name}}',
+            'description': '{{component.description}}',
+            'image': '/media/{{component.image}}',
+        },
+        {%endfor%}
+    ];
+
+    function fuzzyMatch(pattern, str) {
+        pattern = '.*' + pattern.split('').join('.*') + '.*';
+        const re = new RegExp(pattern);
+        return re.test(str);
+    }
+    let sr = document.querySelector('.searchButton');
+    sr.addEventListener('keyup',(e) => {
+        console.log(e.target.value);
+        document.querySelector('.tiles').innerHTML = renderData(components.filter((value) => fuzzyMatch(e.target.value.toLowerCase(),value['name'].toLowerCase())));
+        if (e.target.value == "")  {
+            document.querySelector('.tiles').innerHTML = renderData(components);
+        }
+    });
+
+
+    function renderData(compo) {
+        let data = '';
+        compo.map((value) => {
+            data +=  `
+                <a href="/component/${value['id']}" style="text-decoration: none;color:black">
+        <div class='tile'>
+        <img class='tile-img' src="${value['image']}"/>
+        <div class='tile-info'>
+            <h1>${value['name']}</h1>
+            <p>${value['description']}</p>
+        </div>
+        </div>
+        </a>
+            `;
+        }); 
+        return data;
+    }
+    document.querySelector('.tiles').innerHTML = renderData(components);
+
+
+
+
+</script>
+{%endblock%}

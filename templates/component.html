@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+
+{% load static %}
+{%block content%}
+
+{% load crispy_forms_tags %} 
+<style>
+    .main-image {
+        border:1px solid red;
+    }
+    .box{
+        display: flex;
+        flex-direction: row;
+    }
+    .title{
+        font-weight: bold;
+        font-size:30px;
+    }
+    .stock {
+        color: grey;
+        font-size: 30px;
+    }
+    .description {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+</style>
+<div class="box">
+    <div class="left">
+        <img class="main-image" src="/media/{{component.image}}" />
+        <div class="title">
+            {{component.name}}
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="stock">
+            {{component.stock}} in stock
+        </div>
+       <div class="description">
+        <div style="font-size:15px">Description</div>
+            {{component.description}}
+            <form action="/component/{{component.id}}/" method="post">
+                {% csrf_token %}
+                {{form | crispy}}
+                <input type="submit" value="Request">
+            </form>
+       </div> 
+    </div>
+</div>
+<script>
+    document.querySelector('[name="pieces"]').setAttribute("max",{{component.stock}});
+</script>
+{%endblock%}
