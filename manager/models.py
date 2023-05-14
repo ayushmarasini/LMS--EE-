@@ -39,7 +39,7 @@ class Component(models.Model):
 
 
 class Borrower(models.Model):
-    barcode = models.BigIntegerField(primary_key=True)
+    barcode = models.CharField(max_length = 300, primary_key=True)
 
     def __str__(self):
         return str(self.barcode)
@@ -61,6 +61,7 @@ class BorrowList(models.Model):
 class Transaction(models.Model):
     fine = models.IntegerField()  
     return_date = models.DateField()
+
 
 
 
